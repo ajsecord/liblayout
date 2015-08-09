@@ -30,7 +30,7 @@ typedef struct {
 } rect_array;
 
 /* Distribution of rectangles */
-static int default_num_rects = 200;
+static int default_num_rects = 100;
 static lay_real_t default_extent_mean = 40;
 static lay_real_t default_extent_stddev = 0;
 static lay_real_t default_extent_min = 5;
@@ -471,7 +471,7 @@ static void menu(int value) {
             break;
             
         case 's':
-            step(500);
+            step(1);
             glutPostRedisplay();
             break;
             
