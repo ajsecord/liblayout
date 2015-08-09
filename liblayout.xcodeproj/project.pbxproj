@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -25,11 +25,7 @@
 		0B1537A50B023C140029AEAC /* r.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B1537A30B023C140029AEAC /* r.h */; };
 		0B15383B0B0257970029AEAC /* nrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B1538390B0257970029AEAC /* nrutil.c */; };
 		0B15383C0B0257970029AEAC /* nrutil.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B15383A0B0257970029AEAC /* nrutil.h */; };
-		0B15390E0B02CE760029AEAC /* libmacopt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B1537910B023AF60029AEAC /* libmacopt.a */; };
 		0B20B7091B77C21E00A74842 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B20B7081B77C21E00A74842 /* main.c */; };
-		0B3D02690AE804B5002F5267 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3D02680AE804B5002F5267 /* GLUT.framework */; };
-		0B3D02A20AE806F7002F5267 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B3D02A00AE806F7002F5267 /* random.c */; };
-		0B3D03790AE81B8C002F5267 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3D03780AE81B8C002F5267 /* OpenGL.framework */; };
 		0B459C950F84277F0059AB8F /* macopt_float.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B459C8A0F8426D80059AB8F /* macopt_float.c */; };
 		0B459C960F8427800059AB8F /* macopt_float.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B459C890F8426D80059AB8F /* macopt_float.h */; };
 		0BAF52E51B77C4450012F827 /* liblayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD9CC6D0B18BE7D00F6D938 /* liblayout.a */; };
@@ -37,7 +33,6 @@
 		0BD9CC700B18BE8D00F6D938 /* layout.c in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0A8DA0AE59DE100A9C8A0 /* layout.c */; };
 		0BD9CC710B18BE8F00F6D938 /* overlap.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B85E35E0B163FDF007265FE /* overlap.c */; };
 		0BD9CC720B18BE9100F6D938 /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 0B3D02A00AE806F7002F5267 /* random.c */; };
-		0BD9CC790B18BEC100F6D938 /* liblayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD9CC6D0B18BE7D00F6D938 /* liblayout.a */; };
 		0BD9CCCF0B18CB8F00F6D938 /* layout.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE0A8C40AE59BAE00A9C8A0 /* layout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BD9CCD00B18CB9200F6D938 /* macopt.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B4EEAEA0B04E7F7008147DB /* macopt.h */; settings = {ATTRIBUTES = (); }; };
 		0BD9CCD10B18CB9300F6D938 /* overlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B85E3A40B1643BE007265FE /* overlap.h */; };
@@ -61,20 +56,6 @@
 			remoteInfo = macopt;
 		};
 		0BD9CC6E0B18BE8100F6D938 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B1537900B023AF60029AEAC;
-			remoteInfo = macopt;
-		};
-		0BD9CC870B18BEF900F6D938 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0BD9CC6C0B18BE7D00F6D938;
-			remoteInfo = layout;
-		};
-		0BD9CC890B18BEF900F6D938 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -105,10 +86,10 @@
 		0B1537B70B023D120029AEAC /* test_macopt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_macopt.c; sourceTree = "<group>"; };
 		0B1538390B0257970029AEAC /* nrutil.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = nrutil.c; path = newansi/nrutil.c; sourceTree = "<group>"; };
 		0B15383A0B0257970029AEAC /* nrutil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = nrutil.h; path = newansi/nrutil.h; sourceTree = "<group>"; };
+		0B18D50F1B77E26900A14C3C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		0B2015DC0AF14CB200AB770D /* sim_anneal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sim_anneal.h; path = ../layout/sim_anneal.h; sourceTree = "<group>"; };
 		0B20B7061B77C21E00A74842 /* sample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B20B7081B77C21E00A74842 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		0B3D02390AE80332002F5267 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B3D02680AE804B5002F5267 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		0B3D02A00AE806F7002F5267 /* random.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = random.c; path = ext/random/random.c; sourceTree = SOURCE_ROOT; };
 		0B3D02A10AE806F7002F5267 /* random.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = random.h; path = ext/random/random.h; sourceTree = SOURCE_ROOT; };
@@ -123,7 +104,6 @@
 		0B64FEC50AFBB44D00763EEA /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = types.h; path = ../layout/types.h; sourceTree = "<group>"; };
 		0B85E35E0B163FDF007265FE /* overlap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = overlap.c; sourceTree = "<group>"; };
 		0B85E3A40B1643BE007265FE /* overlap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = overlap.h; path = layout/overlap.h; sourceTree = SOURCE_ROOT; };
-		0BD9CC110B18981000F6D938 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README.txt; sourceTree = SOURCE_ROOT; };
 		0BD9CC6D0B18BE7D00F6D938 /* liblayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE0A8C40AE59BAE00A9C8A0 /* layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = layout.h; path = ../layout/layout.h; sourceTree = "<group>"; };
 		0BE0A8DA0AE59DE100A9C8A0 /* layout.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = layout.c; sourceTree = "<group>"; };
@@ -143,17 +123,6 @@
 			files = (
 				0BAF52E81B77C45A0012F827 /* libmacopt.a in Frameworks */,
 				0BAF52E51B77C4450012F827 /* liblayout.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0B3D02370AE80332002F5267 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0BD9CC790B18BEC100F6D938 /* liblayout.a in Frameworks */,
-				0B15390E0B02CE760029AEAC /* libmacopt.a in Frameworks */,
-				0B3D02690AE804B5002F5267 /* GLUT.framework in Frameworks */,
-				0B3D03790AE81B8C002F5267 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,10 +214,10 @@
 		0B4D36240AFB99BC0087A448 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				0BD9CC110B18981000F6D938 /* README.txt */,
-				0B64FE290AFB9EEE00763EEA /* index.html */,
 				0B64FE100AFB9D3600763EEA /* annotated.html */,
 				0B4D36290AFB9A070087A448 /* Doxygen */,
+				0B64FE290AFB9EEE00763EEA /* index.html */,
+				0B18D50F1B77E26900A14C3C /* README.md */,
 			);
 			name = Documentation;
 			path = doc;
@@ -257,7 +226,6 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B3D02390AE80332002F5267 /* test */,
 				0B1537910B023AF60029AEAC /* libmacopt.a */,
 				0BD9CC6D0B18BE7D00F6D938 /* liblayout.a */,
 				0B20B7061B77C21E00A74842 /* sample */,
@@ -329,24 +297,6 @@
 			productReference = 0B20B7061B77C21E00A74842 /* sample */;
 			productType = "com.apple.product-type.tool";
 		};
-		0B3D02380AE80332002F5267 /* test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0B3D02510AE803AE002F5267 /* Build configuration list for PBXNativeTarget "test" */;
-			buildPhases = (
-				0B3D02360AE80332002F5267 /* Sources */,
-				0B3D02370AE80332002F5267 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				0BD9CC880B18BEF900F6D938 /* PBXTargetDependency */,
-				0BD9CC8A0B18BEF900F6D938 /* PBXTargetDependency */,
-			);
-			name = test;
-			productName = test;
-			productReference = 0B3D02390AE80332002F5267 /* test */;
-			productType = "com.apple.product-type.tool";
-		};
 		0BD9CC6C0B18BE7D00F6D938 /* layout */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BD9CC810B18BEC300F6D938 /* Build configuration list for PBXNativeTarget "layout" */;
@@ -371,6 +321,7 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0640;
 				TargetAttributes = {
 					0B20B7051B77C21E00A74842 = {
 						CreatedOnToolsVersion = 7.0;
@@ -378,7 +329,7 @@
 				};
 			};
 			buildConfigurationList = 1DEB914E08733D8E0010E9CD /* Build configuration list for PBXProject "liblayout" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -390,7 +341,6 @@
 			targets = (
 				0BD9CC6C0B18BE7D00F6D938 /* layout */,
 				0B1537900B023AF60029AEAC /* macopt */,
-				0B3D02380AE80332002F5267 /* test */,
 				0B4D362C0AFB9A210087A448 /* Code Documentation */,
 				0B20B7051B77C21E00A74842 /* sample */,
 			);
@@ -409,7 +359,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n/sw/bin/doxygen doc/Doxygen\n";
+			shellScript = "# shell script goes here\n/usr/local/bin/doxygen doc/Doxygen\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -429,14 +379,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B20B7091B77C21E00A74842 /* main.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0B3D02360AE80332002F5267 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0B3D02A20AE806F7002F5267 /* random.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,22 +410,13 @@
 			target = 0B1537900B023AF60029AEAC /* macopt */;
 			targetProxy = 0BD9CC6E0B18BE8100F6D938 /* PBXContainerItemProxy */;
 		};
-		0BD9CC880B18BEF900F6D938 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0BD9CC6C0B18BE7D00F6D938 /* layout */;
-			targetProxy = 0BD9CC870B18BEF900F6D938 /* PBXContainerItemProxy */;
-		};
-		0BD9CC8A0B18BEF900F6D938 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0B1537900B023AF60029AEAC /* macopt */;
-			targetProxy = 0BD9CC890B18BEF900F6D938 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0B15379E0B023B610029AEAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -500,6 +433,7 @@
 		0B15379F0B023B610029AEAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -586,46 +520,6 @@
 			};
 			name = Release;
 		};
-		0B3D02520AE803AE002F5267 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
-				PREBINDING = NO;
-				PRODUCT_NAME = test;
-				ZERO_LINK = NO;
-			};
-			name = Debug;
-		};
-		0B3D02530AE803AE002F5267 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
-				PREBINDING = NO;
-				PRODUCT_NAME = test;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		0B4D36340AFB9A6F0087A448 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -651,6 +545,7 @@
 		0BD9CC820B18BEC300F6D938 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -672,6 +567,7 @@
 		0BD9CC830B18BEC300F6D938 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -691,6 +587,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = .;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "src ext";
@@ -740,15 +637,6 @@
 			buildConfigurations = (
 				0B20B70B1B77C21E00A74842 /* Debug */,
 				0B20B70C1B77C21E00A74842 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0B3D02510AE803AE002F5267 /* Build configuration list for PBXNativeTarget "test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0B3D02520AE803AE002F5267 /* Debug */,
-				0B3D02530AE803AE002F5267 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

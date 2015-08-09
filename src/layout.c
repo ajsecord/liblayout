@@ -63,7 +63,7 @@ struct lay_state {
     lay_real_t orig_pos_weight;     /**< The original position penalty weight. */
     
     /* Temporary storage */
-    lay_coord_t* dof;               /**< The degrees of freedom, modified by the optimizer. */
+    float* dof;                     /**< The degrees of freedom, modified by the optimizer. (macopt uses float) */
 
     /* Optimizer arguments */
     macopt_args opt_args;           /**< Optimizer arguments. */
@@ -80,7 +80,7 @@ static void create_num_rect_temps(lay_statep state) {
     
     assert(!state->dof);
     if (state->num_rects > 0) {
-        state->dof = malloc(state->num_rects * 2 * sizeof(double));
+        state->dof = malloc(state->num_rects * 2 * sizeof(float));
     }
     
     /* Sanity check */
@@ -103,30 +103,30 @@ static void destroy_num_rect_temps(lay_statep state) {
     }
 }
 
-/** Copy user-land positions into a dense array of lay_coord_t. */
-static void copy_user_pos_to_array(const lay_statep state, lay_coord_t* array) {
+/** Copy user-land positions into a dense array of optimizer floating-point values. */
+static void copy_user_pos_to_array(const lay_statep state, float* array) {
     lay_coord_t* p;
     int i;
     
     assert(array && state && state->pos);
     p = state->pos;
     for (i = 0; i < state->num_rects; ++i) {
-        array[2*i]   = p[0];
-        array[2*i+1] = p[1];
+        array[2*i]   = (float)p[0];
+        array[2*i+1] = (float)p[1];
         p = LAY_NEXT_POS(state, p);
     }
 }
 
-/** Copy a dense array of lay_coord_t into user-land positions. */
-static void copy_array_to_user_pos(const lay_coord_t* array, lay_statep state) {
+/** Copy a dense array of optimizer floating-point values into user-land positions. */
+static void copy_array_to_user_pos(const float* array, lay_statep state) {
     lay_coord_t* p;
     int i;
     
     assert(array && state && state->pos);
     p = state->pos;
     for (i = 0; i < state->num_rects; ++i) {
-        p[0] = array[2*i];
-        p[1] = array[2*i+1];
+        p[0] = (lay_coord_t)array[2*i];
+        p[1] = (lay_coord_t)array[2*i+1];
         p = LAY_NEXT_POS(state, p);
     }
 }
