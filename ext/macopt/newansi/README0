@@ -1,0 +1,12 @@
+My Makefile methodology is to have all .o files
+and all executables be put in a directory called
+bin$ARC
+
+eg bini386
+
+This allows executables for many platforms
+to be made within a single location without
+having to make clean every time the platform
+is changed. Executables can be made simultaneously
+on multiple platforms.
+

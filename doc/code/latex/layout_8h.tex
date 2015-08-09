@@ -1,0 +1,92 @@
+\section{layout.h File Reference}
+\label{layout_8h}\index{layout.h@{layout.h}}
+Layout function declarations and types.  
+
+
+{\tt \#include $<$stddef.h$>$}\par
+{\tt \#include $<$layout/types.h$>$}\par
+\subsection*{Initialization and setup functions}
+\begin{CompactItemize}
+\item 
+{\bf lay\_\-statep} {\bf lay\_\-create\_\-state} ()
+\begin{CompactList}\small\item\em Create an internal state structure for use with subsequent liblayout functions. \item\end{CompactList}\item 
+void {\bf lay\_\-destroy\_\-state} ({\bf lay\_\-statep} state)\label{layout_8h_a2}
+
+\begin{CompactList}\small\item\em Destroy an internal state structure. \item\end{CompactList}\item 
+int {\bf lay\_\-verify\_\-state} ({\bf lay\_\-statep} state)\label{layout_8h_a3}
+
+\begin{CompactList}\small\item\em Assert that the internal state is consistent. \item\end{CompactList}\item 
+void {\bf lay\_\-register\_\-rects} ({\bf lay\_\-statep} state, {\bf lay\_\-coord\_\-t} $\ast$rect\_\-pos, const  ptrdiff\_\-t pos\_\-skip, {\bf lay\_\-extent\_\-t} $\ast$rect\_\-size, const  ptrdiff\_\-t size\_\-skip, const  int count)
+\begin{CompactList}\small\item\em Register the positions and sizes of a set of rectangles with liblayout. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Optimization settings}
+\begin{CompactItemize}
+\item 
+{\bf lay\_\-real\_\-t} {\bf lay\_\-get\_\-overlap\_\-weight} (const  {\bf lay\_\-statep} state)\label{layout_8h_a5}
+
+\begin{CompactList}\small\item\em Get the overlap penalty weight. \item\end{CompactList}\item 
+void {\bf lay\_\-set\_\-overlap\_\-weight} ({\bf lay\_\-statep} state, const  {\bf lay\_\-real\_\-t} weight)\label{layout_8h_a6}
+
+\begin{CompactList}\small\item\em Set the overlap penalty weight. \item\end{CompactList}\item 
+{\bf lay\_\-real\_\-t} {\bf lay\_\-get\_\-edge\_\-weight} (const  {\bf lay\_\-statep} state)\label{layout_8h_a7}
+
+\begin{CompactList}\small\item\em Get the edge penalty weight. \item\end{CompactList}\item 
+void {\bf lay\_\-set\_\-edge\_\-weight} ({\bf lay\_\-statep} state, const  {\bf lay\_\-real\_\-t} weight)\label{layout_8h_a8}
+
+\begin{CompactList}\small\item\em Set the edge penalty weight. \item\end{CompactList}\item 
+{\bf lay\_\-real\_\-t} {\bf lay\_\-get\_\-center\_\-weight} (const  {\bf lay\_\-statep} state)\label{layout_8h_a9}
+
+\begin{CompactList}\small\item\em Get the center penalty weight. \item\end{CompactList}\item 
+void {\bf lay\_\-set\_\-center\_\-weight} ({\bf lay\_\-statep} state, const  {\bf lay\_\-real\_\-t} weight)\label{layout_8h_a10}
+
+\begin{CompactList}\small\item\em Set the center penalty weight. \item\end{CompactList}\item 
+{\bf lay\_\-real\_\-t} {\bf lay\_\-get\_\-orig\_\-pos\_\-weight} (const  {\bf lay\_\-statep} state)\label{layout_8h_a11}
+
+\begin{CompactList}\small\item\em Get the original position penalty weight. \item\end{CompactList}\item 
+void {\bf lay\_\-set\_\-orig\_\-pos\_\-weight} ({\bf lay\_\-statep} state, const  {\bf lay\_\-real\_\-t} weight)\label{layout_8h_a12}
+
+\begin{CompactList}\small\item\em Set the original position penalty weight. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf lay\_\-state} $\ast$ {\bf lay\_\-statep}\label{layout_8h_a0}
+
+\begin{CompactList}\small\item\em Pointer to the internal liblayout state. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf lay\_\-optimize} ({\bf lay\_\-statep} state)
+\begin{CompactList}\small\item\em Optimize the position of the input rectangles. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Layout function declarations and types. 
+
+
+
+\subsection{Function Documentation}
+\index{layout.h@{layout.h}!lay_create_state@{lay\_\-create\_\-state}}
+\index{lay_create_state@{lay\_\-create\_\-state}!layout.h@{layout.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf lay\_\-statep} lay\_\-create\_\-state ()}\label{layout_8h_a1}
+
+
+Create an internal state structure for use with subsequent liblayout functions. 
+
+When finished, must be destroyed using {\bf lay\_\-destroy\_\-state()}{\rm (p.\,\pageref{layout_8h_a2})}. \index{layout.h@{layout.h}!lay_optimize@{lay\_\-optimize}}
+\index{lay_optimize@{lay\_\-optimize}!layout.h@{layout.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void lay\_\-optimize ({\bf lay\_\-statep} {\em state})}\label{layout_8h_a13}
+
+
+Optimize the position of the input rectangles. 
+
+Overwrites the current positions with optimized positions. \index{layout.h@{layout.h}!lay_register_rects@{lay\_\-register\_\-rects}}
+\index{lay_register_rects@{lay\_\-register\_\-rects}!layout.h@{layout.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void lay\_\-register\_\-rects ({\bf lay\_\-statep} {\em state}, {\bf lay\_\-coord\_\-t} $\ast$ {\em rect\_\-pos}, const ptrdiff\_\-t {\em pos\_\-skip}, {\bf lay\_\-extent\_\-t} $\ast$ {\em rect\_\-size}, const ptrdiff\_\-t {\em size\_\-skip}, const int {\em count})}\label{layout_8h_a4}
+
+
+Register the positions and sizes of a set of rectangles with liblayout. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em state}]The internal state structure. \item[{\em rect\_\-pos}]A pointer to the x-coordinate of the first size. The y-coordinate of the first size is assumed to exist at {\tt $\ast$(rect\_\-pos + 1)}. The pointer can be NULL, but no operations requiring sizes may be used. \item[{\em pos\_\-skip}]The number of bytes to add to {\tt rect\_\-pos} to get to the x-coordinate of the next size. If zero, then the data is assumed to be tightly packed, and pos\_\-skip will be set to {\tt 2 $\ast$ sizeof(lay\_\-coord\_\-t)}. Can be negative. \item[{\em rect\_\-size}]A pointer to the width of the first size. The height of the first size is assumed to exist at {\tt $\ast$(p + 1)}. The pointer can be NULL, but no operations requiring sizes may be used. \item[{\em size\_\-skip}]The number of bytes to add to {\tt p} to get to the width of the next size. If zero, then the data is assumed to be tightly packed, and skip will be set to {\tt 2 $\ast$ sizeof(lay\_\-extent\_\-t)}. Can be negative. \item[{\em count}]The number of rectangles. \end{description}
+\end{Desc}

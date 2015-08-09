@@ -1,0 +1,56 @@
+\section{sim\_\-anneal.h File Reference}
+\label{sim__anneal_8h}\index{sim_anneal.h@{sim\_\-anneal.h}}
+Functional minimization by simulated annealing.  
+
+
+{\tt \#include $<$layout/types.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct {\bf lay\_\-sa\_\-ops}
+\begin{CompactList}\small\item\em Operations required for simulated annealing. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef void($\ast$ {\bf lay\_\-sa\_\-neighbor\_\-func} )(void $\ast$context, const  void const $\ast$input, const  double cur\_\-temp, void $\ast$output)
+\begin{CompactList}\small\item\em A function that generates a neighbor of {\tt input} and stores it in {\tt output}. \item\end{CompactList}\item 
+typedef double($\ast$ {\bf lay\_\-sa\_\-eval\_\-func} )(void $\ast$context, const  void const $\ast$input)
+\begin{CompactList}\small\item\em A function to evaluate a particular point. \item\end{CompactList}\item 
+typedef double($\ast$ {\bf lay\_\-sa\_\-temp\_\-func} )(void $\ast$context, const  double cur\_\-temp)
+\begin{CompactList}\small\item\em A function to reduce the temperature on some schedule. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int {\bf lay\_\-sim\_\-anneal} (void $\ast$context, const  {\bf lay\_\-sa\_\-ops} ops, const  lay\_\-point\_\-ops point\_\-ops, void $\ast$start\_\-stop\_\-point, double $\ast$temp, const  double temp\_\-min, const  int num\_\-iters, const  int max\_\-total\_\-iters, long $\ast$rand\_\-seed)\label{sim__anneal_8h_a3}
+
+\begin{CompactList}\small\item\em Run the simulated annealing algorithm to search for a minimum point. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Functional minimization by simulated annealing. 
+
+
+
+\subsection{Typedef Documentation}
+\index{sim_anneal.h@{sim\_\-anneal.h}!lay_sa_eval_func@{lay\_\-sa\_\-eval\_\-func}}
+\index{lay_sa_eval_func@{lay\_\-sa\_\-eval\_\-func}!sim_anneal.h@{sim\_\-anneal.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef double($\ast$ {\bf lay\_\-sa\_\-eval\_\-func})(void$\ast$ context, const void const$\ast$ input)}\label{sim__anneal_8h_a1}
+
+
+A function to evaluate a particular point. 
+
+The {\tt context} parameter allows the user to store arbitrary information. \index{sim_anneal.h@{sim\_\-anneal.h}!lay_sa_neighbor_func@{lay\_\-sa\_\-neighbor\_\-func}}
+\index{lay_sa_neighbor_func@{lay\_\-sa\_\-neighbor\_\-func}!sim_anneal.h@{sim\_\-anneal.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf lay\_\-sa\_\-neighbor\_\-func})(void$\ast$ context, const void const$\ast$ input, const double cur\_\-temp, void$\ast$ output)}\label{sim__anneal_8h_a0}
+
+
+A function that generates a neighbor of {\tt input} and stores it in {\tt output}. 
+
+The {\tt context} parameter allows the user to store arbitrary information. \index{sim_anneal.h@{sim\_\-anneal.h}!lay_sa_temp_func@{lay\_\-sa\_\-temp\_\-func}}
+\index{lay_sa_temp_func@{lay\_\-sa\_\-temp\_\-func}!sim_anneal.h@{sim\_\-anneal.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef double($\ast$ {\bf lay\_\-sa\_\-temp\_\-func})(void$\ast$ context, const double cur\_\-temp)}\label{sim__anneal_8h_a2}
+
+
+A function to reduce the temperature on some schedule. 
+
+The {\tt context} parameter allows the user to store arbitrary information. 

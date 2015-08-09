@@ -1,0 +1,44 @@
+# MAKEFILE FOR all C directories
+# included by others 
+# include ./MMakefile
+# why the fcuk does this not work on mraos ^^^?
+bin = bin$(ARC)
+ALWAYS:
+
+
+CFLAGS = $(INCDIRS) \
+		-ansi -pedantic -g\
+		 -Wall -Wconversion -Wstrict-prototypes\
+                 -Wformat -Wmissing-prototypes -Wshadow\
+                 -Wpointer-arith -Wcast-qual -Wwrite-strings\
+		 -D__USE_FIXED_PROTOTYPES__  -O2 -funroll-loops
+#		 -D__USE_FIXED_PROTOTYPES__  -O2 -funroll-loops  -static
+# options for linux gcc
+# -O3 -malign-functions=4 -malign-loops=4 -malign-jumps=2
+# -O2 -funroll-loops
+#
+# rand2.o does not make if this O2 is there , on dec!
+#
+# to profile    gprof opt2
+# to not profile, remove -pg here and below. 
+#
+# to optimize add -O2 -funroll-loops
+# LIBS = -L/home/mackay/lib -ldbmalloc -lm 
+LIBS = -lm 
+LIBDIRS		= -L/home/mackay/usr/lib -ldbmalloc -lm
+LDFLAGS		= -g
+
+CC = gcc
+
+%.tar:	%.c
+	cd .. ;	tar cvf /home/mackay/pub/c/$*.tar -T newansi/$*.tar.com
+	gzip -f /home/mackay/pub/c/$*.tar
+clean:
+	rm *.o
+%.o:	../%.c
+	$(CC) $(CFLAGS) ../$*.c -c -o $*.o
+verbose:
+	echo bin = $(bin)
+
+
+

@@ -1,0 +1,27 @@
+\section{overlap.h File Reference}
+\label{overlap_8h}\index{overlap.h@{overlap.h}}
+Overlap computations for rectangles.  
+
+
+{\tt \#include $<$layout/types.h$>$}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf lay\_\-real\_\-t} {\bf lay\_\-overlap\_\-area} (const  {\bf lay\_\-coord\_\-t} $\ast$pos1, const  {\bf lay\_\-extent\_\-t} $\ast$size1, const  {\bf lay\_\-coord\_\-t} $\ast$pos2, const  {\bf lay\_\-extent\_\-t} $\ast$size2, {\bf lay\_\-real\_\-t} $\ast$grad)
+\begin{CompactList}\small\item\em Compute the overlap area between two rectangles. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Overlap computations for rectangles. 
+
+
+
+\subsection{Function Documentation}
+\index{overlap.h@{overlap.h}!lay_overlap_area@{lay\_\-overlap\_\-area}}
+\index{lay_overlap_area@{lay\_\-overlap\_\-area}!overlap.h@{overlap.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf lay\_\-real\_\-t} lay\_\-overlap\_\-area (const {\bf lay\_\-coord\_\-t} $\ast$ {\em pos1}, const {\bf lay\_\-extent\_\-t} $\ast$ {\em size1}, const {\bf lay\_\-coord\_\-t} $\ast$ {\em pos2}, const {\bf lay\_\-extent\_\-t} $\ast$ {\em size2}, {\bf lay\_\-real\_\-t} $\ast$ {\em grad})}\label{overlap_8h_a0}
+
+
+Compute the overlap area between two rectangles. 
+
+If {\tt grad} is non-null, then the gradient is saved as an array of four real values, calculated with respect to rect1.x, to rect1.y, to rect2.x, and to rect2.y, in that order. 

@@ -1,0 +1,47 @@
+# Makefile for ansi/bin*
+include ../cMakefile
+
+first:		first.o  	cg.o	nrutil.o
+	$(CC) first.o cg.o nrutil.o -lm -o first
+
+tmp:		tmp.o  	cg.o	nrutil.o
+	$(CC) tmp.o cg.o nrutil.o -lm -o tmp
+
+test_new_cg:	test_new_cg.o test_function.o 	new_cg.o nrutil.o r.o
+	$(CC) test_new_cg.o test_function.o new_cg.o nrutil.o r.o -lm -o test_new_cg
+
+t_cg_solve:	t_cg_solve.o test_function.o 	new_cg.o nrutil.o r.o 
+	$(CC) t_cg_solve.o test_function.o new_cg.o nrutil.o r.o -lm -o t_cg_solve
+
+test_mac:	test_mac.o test_function.o 	cg.o nrutil.o r.o 
+	$(CC) test_mac.o test_function.o cg.o nrutil.o r.o -lm -o test_mac
+
+test_macII:	test_macII.o test_function.o macopt.o nrutil.o r.o 
+	$(CC) test_macII.o test_function.o macopt.o nrutil.o r.o -lm -o test_macII
+test_macIIc:	test_macIIc.o test_function.o macopt.o nrutil.o r.o 
+	$(CC) test_macIIc.o test_function.o macopt.o nrutil.o r.o -lm -o test_macIIc
+test_quartic:	test_quartic.o test_function.o macopt.o nrutil.o r.o 
+	$(CC) test_quartic.o test_function.o macopt.o nrutil.o r.o -lm -o test_quartic
+test_lu:	test_lu.o lu.o nrutil.o r.o matrix.o
+	$(CC) test_lu.o lu.o nrutil.o r.o  matrix.o -lm -o test_lu
+
+hash.o: ../hash.c ../hash.h
+rand2.o:	../rand2.c	../rand2.h
+smartall.o:	../smartall.c ../smartall.h
+first.o:	../first.c
+tmp.o:		../tmp.c
+cg.o:		../cg.c  	../mynr.h
+cmatrix.o:	../cmatrix.c ../cmatrix.h
+lu.o:	../lu.c ../r.h ../mynr.h ../ludcmp.c ../lubksb.c
+matrix.o:	../matrix.c ../r.h ../mynr.h
+nrutil.o:	../nrutil.c	../nrutil.h
+#	cd .. ; $(CC) $(CFLAGS) -c nrutil.c  -o $(bin)/i.o
+new_cg.o:	../new_cg.c ../mynr.h ../r.h
+r.o:		../r.c ../r.h
+t_cg_solve.o:	../t_cg_solve.c ../r.h
+test_quartic.o:	../mynr.h ../r.h ../macopt.h ../test.h ../nrutil.h 
+test_macIIc.o:	../mynr.h ../r.h ../macopt.h ../test.h ../nrutil.h 
+test_macII.o:	../mynr.h ../r.h ../macopt.h ../test.h ../nrutil.h 
+macopt.o:		../macopt.c	../macopt.h
+strangeopt.o:		../strangeopt.c	../strangeopt.h
+test_function.o:	../test_function.c ../test.h 

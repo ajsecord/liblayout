@@ -1,0 +1,467 @@
+<HTML><HEAD>
+<TITLE> macopt </TITLE>
+<style TYPE="TEXT/CSS"><!--
+P,TD,TH,UL,DD,DT,DL,OL { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif}
+P.indented {margin-left:0.5cm; margin-right:0.5cm}
+BODY,DIV { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;}
+TT,PRE { font-family: Courier, monospace;}
+SUP,SUB,SMALL { font-size: 90%}
+.smaller { font-size: 80%}
+SPAN.header { font-family: times, roman; font-size: 200%}
+H1 { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, arial, helvetica, sans serif; font-size: 180%; color: #008077; background-color: #ddeeee}
+H2 { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, arial, helvetica, sans serif; font-size: 135%; color: #008077; background-color: #ddeeee}
+H3 { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, arial, helvetica, sans serif; font-size: 120%; color: #008077; background-color: #ddeeee}
+H4 { font-family:  \'Lucida Grande\', Verdana, Geneva, Lucida, arial, helvetica, sans serif; color: #008077}
+abbr, acronym, .help {
+  border-bottom: 1px dotted #333;
+  cursor: help;
+}
+--></STYLE></head>
+
+ <body BGCOLOR="#ffffee"  TEXT="#000000" LINK="#0000C8" ALINK="#C80000" VLINK="#C80000">
+<H1> macopt-a nippy wee optimizer </h1>
+<ul>
+<li><a href="#nr">What is wrong with the Numerical Recipes Conjugate
+			Gradient optimizers</a>
+</li><li><a href="#mac_sum">Summary of macopt</a>
+</li><li><a href="#mac_def">Messing with the defaults</a>
+</li><li><a href="#mac_qs">FAQs</a> (frequently asked questions)
+
+</li><li><a href="#license">License</a>
+</li><li><a href="#download">Download C code or other versions</a>
+</li>
+</ul>
+<h3>
+<a name="nr"> What is wrong with the Numerical Recipes Conjugate
+			Gradient optimizers</a>
+</h3>
+ I used the conjugate gradient 
+ code in the Numerical Recipes book for several years 
+ to train  successful neural networks. But this code is actually 
+ very poorly written. It's not just 
+ a question of their use of global variables and other ugliness. 
+ The optimizers can be very clumsy when applied to real functions. 
+<ul>
+<li> <strong>Step sizes in line minimization</strong>
+<br>
+Bear in mind that the step size is a number that multiplies 
+the gradient vector to give a movement in parameter space.
+Bear in mind the possibility that the gradient may be `big' 
+(eg proportional to a number of data points, N, with N=1000), 
+whereas the typical desired movement in parameter space may be 
+`small', of order 1, say.
+<br>
+ In the NR algorithm they use a general purpose bracketing procedure 
+ to do the line minimization. The initial step 
+size is always `1', even though this may be a very inappropriate 
+step size. What is worse, 
+if this initial step size is too big then the routine mnbrak 
+makes the next step equal to `-1.6': NB, this is in the wrong direction!
+We know that we are expecting the minimum to lie in the positive direction. 
+And it is an even bigger step than the first one, so it is likely to 
+give even worse numerical problems. 
+So this is a waste of computer time, and creates an initial bracketing 
+interval that is far too big and lies 3/5 in the negative direction. 
+Imagine, for the sake of discussion, that the true minimum is at a step 
+size of about 0.000001 on each line search. Then the Numerical Recipes 
+algorithm will waste a lot of time creating silly guesses -- about 
+log_2 1000000 of them, in fact. So about 10-20 unnecessary function evaluations
+are done on every line search, whereas if the initial step size were 
+0.001, then only a few function evaluations would be needed to locate 
+the minimum. 
+<p>
+In <b>macopt</b> I rectify this in two ways. First the initial step size of 
+any line minimization is inversely proportional to the gradient.
+And second, the constant of proportionality is kept as a static 
+variable held in a special structure and adapted during the optimization. 
+     </p>
+     </li>
+<li>
+ Another criticism of the NR code is that they do not use gradient 
+information in the line search. They mention that it is possible to 
+use gradient information, but their example code does not use it. 
+In fact, with gradient information, it is easier to find the line 
+minimum, because you can bracket the minimum with only two gradient 
+evaluations. 
+<p>
+In macopt I go the whole hog and make no use of the function value at 
+all. This makes for a simpler program and means that one can minimize
+functions whose gradient is easier to calculate than the real thing. 
+(There are examples of such functions in my work.)
+     </p>
+     </li>
+
+<li>
+     <p>
+ Finally, it is not necessary to locate the line minimum as accurately
+as linmin does. 
+ Their general purpose line minimizer gives huge precision, whereas 
+ for practical purposes a rough minimization is adequate. 
+     </p>
+<p>
+ In macopt I just bracket the minimum and then guess where it is 
+ by linear interpolation.
+ (To put it another way,
+      the line search
+     looks for a zero crossing of the inner product of grad(f) and 
+x
+where x is the line search direction.
+     </p>
+     </li>
+</ul>
+<h3>
+<a name="mac_sum"> Summary of the macopt optimizer</a>
+</h3>
+I have written my own conjugate gradient algorithm that attempts to 
+improve on the NR code. My algorithm is called macopt. 
+It has the following properties:
+<ul>
+  <li>
+       The optimized parameters, as in the numerical recipes code, are
+       all contained in one double precision vector, e.g. x[1]..x[N].
+       (Note the offset of 1.) 
+     </p>
+     </li>
+  <li>
+       an adaptive step size is used for the initial step of the line 
+       search. The initial step is inversely proportional to the 
+       gradient, so that the actual movement in parameter 
+       space is of a roughly constant size (which is adaptive :-)
+     </p>
+     </li>
+  <li>	 gradients are used in the line search
+     </p>
+     </li>
+  <li>	 once the minimum has been bracketed, the line search 
+       terminates immediately, and a new line search commences
+       using interpolation to estimate the location of the minimum 
+       and the value of the gradient there. Alternatively 
+       an extra gradient computation can be made here to be safe. 
+     </p>
+     </li>
+  <li>	 typically, when the routine has adapted its step size, two 
+       gradient evaluations per line minimization are performed.
+     </p>
+     </li>
+  <li>	macopt makes sanity checks to confirm that the line search 
+       direction and the gradient are consistent. If they 
+       are not then it resets its g and h vectors to the gradient.
+     </p>
+     </li>
+  <li>	macopt has a structure containing arguments and pointers that 
+       it uses to keep track of vectors and gradients. 
+       The user can control some of these which define: 
+       <ul>
+	 <li>
+	      the maximum number of iterations, and the max number 
+	      of steps in a line minimization.
+     </li>
+	 <li>
+	      the tolerance for the termination condition. 
+	      The tolerance can be expressed in various ways, one 
+	      of which is `covariant' (I think that is the right
+	      jargon).
+     </li>
+	 <li>		`verbose' can set a diagnostic level from 0 to 4.
+	      at level 0 the program is silent except when reporting 
+	      errors.
+     </li>
+       </ul>
+     </p>
+     </li>
+  <li>
+       macopt is quite greedy with memory. If your parameter
+       vector has n dimensions, then macopt needs about 8n
+       doubles.  i.e. it creates 8 vectors for storing
+       gradients and stuff in. But hey, that's not as bad as
+       variable metrics!
+     </li>
+</ul>
+ I find that this algorithm sometimes is ten times faster than the NR
+ code. The Xerion group at University of Toronto have also written
+ their own conjugate gradient optimizers, and they have
+ adaptive conjugate gradient optimizers that only need 1.6 gradient
+ evaluations per line search.
+
+<p>
+<a name="download"></a><h3>Tar files: |
+ <a href="http://www.inference.phy.cam.ac.uk/mackay/c/macopt.tar.gz">New C version</a> |
+ <a href="http://www.inference.phy.cam.ac.uk/mackay/c/macopt++.tar.gz">C++ version - tar file</a> | </h3>
+ | <a href="http://www.inference.phy.cam.ac.uk/mackay/c/macopt.tar.gz2002">original C version</a> |
+ | <a href="http://www.inference.phy.cam.ac.uk/mackay/c/macopt.tar.gz1996">older C version</a> |
+
+ <h3>Other versions</h3>
+ <p><b>Matlab and Octave</b>: (Mon Jun 28  2004)
+ Iain Murray has made matlab and octave wrappers for macopt.
+| <a href=macopt_mex.tar.gz>matlab wrapper</a> |
+<a href=macopt_oct.tar.gz>octave wrapper</a> |
+
+ <br>
+ Notes from Iain: 1. For instructions, <tt>cd macopt_oct; cat README</tt>.
+  The command <tt>make</tt> will download <tt>macopt.tar.gz</tt>.
+2. Then run octave-2.1.57 and <tt>  help macoptII</tt>.
+
+ <small>3. I haven't wrapped the covariant version, and I haven't exposed every
+ option  to the end user.</small>
+ </p>
+ <p><b>Java</b>: 
+ Macopt has been put into 
+ <a href=http://ftp.cse.sc.edu/bioinformatics/PAL/pal-1.4/src/pal/math/ConjugateGradientSearch.java>JAVA</a>
+ in the
+ <a href=http://ftp.cse.sc.edu/bioinformatics/PAL/pal-1.4/doc/index.html>Phylogenetic Analysis Library</a>
+ | <a href=http://iubio.bio.indiana.edu/soft/molbio/java/pal/>PAL mirror site</a> |
+  <a href=/mackay/java/pal-1.4.tar.gz>local copy of tar file, pal-1.4.tar.gz</a>
+ |
+ </p>
+<h3>Instructions for the New C version</h3>
+ Most of the original instructions, given below,
+ are accurate. The only difference is that I organize my directories
+ differently (for ease of maintaining executables on multiple platforms).
+ When you tar xvf, you will get a directory called newansi.
+ This directory must contain a directory called bin$ARC,
+ for example if $ARC is i386,
+ it should be called bini386.
+ This directory should inherit its makefile from newansi/_Makefile thus:
+<pre>
+ newansi/bini386/makefile -> ../_Makefile
+</pre>
+ The above example link is created for you by the tar file.
+ All the .o files and executables are put into bini386.
+ To execute an executable, give the path to it (eg bini386/test_macII)
+ or modify your path to include ./bini386.
+
+ <br><br>
+ Apologies for this minor complication, hope it works OK for you!
+
+
+<h3>Instructions for original C version</h3>
+ There is   a demonstration program 
+ called test_mac which uses macopt to minimize a quadratic function.
+ When you get this tar file, uncompress it, tar xvf it, (Note this creates
+ a directory called ansi), and cd ansi, then type
+<pre>
+ make test_macII
+</pre>
+ Hopefully you will get an executable test_macII which, when executed,
+ minimizes the function 1/2 xAx - bx, where A and b are given by the
+ user interactively. [NB, you must give a positive definite symmetric matrix,
+ e.g.
+<pre>
+2 1
+1 2        .]
+</pre>
+<p>
+The program also makes use of the maccheckgrad function, to check
+ (visually) that the function that claims to return a gradient
+ really does so. In one column, the gradient is given, and in the
+ other the numerical first difference of the objective function. 
+<p>
+The anonymous ftp route for the tar file, if you need it, is:
+ ftp www.inference.phy.cam.ac.uk; cd pub/www/mackay/c; binary.
+<h3>
+<a name="mac_def">
+  Messing with the defaults
+</a>
+</h3>
+You may wish to change the following variables.
+<ol>
+  <li>
+    In the makefile:
+    <ol>
+      <li>
+	Optimization at compile time.
+	Cut out the -O2 -funroll-loops flags to <b>disable</b> optimization.
+	This will make things run slower but will make them easier to
+	debug with many debuggers.
+    </ol>
+
+  <li>
+    In the macopt_arg structure (default values set by
+    macopt_defaults).  [See macopt.h for further information, and see
+    macopt_defaults in macopt.c.]
+    <dl>
+      <dt> end_if_small_step
+      <dd>
+	Defines whether the end of the optimization occurs
+	when a small step is made, or when the gradient is small.
+	Some users find things work well if you
+	   make the termination condition based on the gradient
+	   rather than the step size.
+      <dt> tol
+      <dd>
+	Defines `small' in the above senses. I recommend using
+	end_if_small_step=1, and setting tol using your knowledge of
+	your parameter space. What is a `really small' change in a
+	typical parameter?
+	<p>
+	   Note that tol only defines when the optimization ends. It
+	   does not have any effect on what happens during the
+	   line searches. 
+      <dt> lastx and lastx_default
+      <dd>
+	defines typical distance in parameter space at which the line
+	minimum is expected; both these should be set. the default is
+	consulted if something goes badly wrong and a reset is
+	demanded. It is not essential to give these good values, as the
+	algorithm is adaptive, but the idea is that you should specify
+	a typical expected step size here. Err on the small side if
+	unsure. 
+      <dt> itmax
+      <dd>
+	Maximum number of line minimizations performed.
+	
+      <dt> rich
+      <dd>
+	Whether a gradient is evaluated at the beginning of every line
+	minimization. If you can get away with this being 0, then
+	the optimizer runs faster.
+	
+      <dt> verbose
+      <dd> if verbose = 1 then there is one report for each
+		      line minimization.  if verbose = 2 then there is
+		      an additional report for each step of the line
+		      minimization.  if verbose = 3 then extra
+		      debugging routines kick in.
+    </dl>
+</ol>
+<h3>
+<a name="mac_errs">
+ Error messages
+</a>
+</h3>
+<dl>
+  <dt> Failure to compile.
+       <dd>
+       If it complains about srand being redefined, don't worry.
+       We don't need srand.
+       <dd>
+	    If it complains about the return type of main(), tell it
+	    to be less pedantic.
+  <dt><b>
+       Warning! maclinmin overran- inner product at 0 =   0.09674
+       </b>
+  <dd>
+       This sort of error message is a problem.
+       The inner product at the beginning of a line search should be 
+       negative, otherwise the whole method doesn't work at all.
+       <p>
+       If you get this error message a lot, <b>either</b>
+       there is a bug in your
+       gradient computing software (always make use of the check_grad
+       routine to see if all is well with your gradient)
+       <b>or</b> macopt is being too ambitious and needs to
+       be a bit more conservative: set `rich' to 1.
+</dl>
+<h3>
+<a name="mac_qs">
+ Questions from users of macopt:
+</a>
+</h3>
+<a name="license"></a><dl>
+  <dt> <em>We are using your macopt package on an application
+       that we would like to release under the GNU Lesser General Pulic License
+       (<a href=http://www.gnu.org/licenses/licenses.html#LGPL>LGPL</a>).
+Do you offer a license that will permit us to distribute your code under
+the LGPL?</em>
+<dd><p>
+     Yes, as of Thu 15/8/02, the <b>macopt</b> releases in both <b>C</b> and <b>C++</b> on my website
+     are distributed under the LGPL; the associated example test files
+     are distributed under the GPL.
+     <br>
+     <b>Note however that three files in the tar file belong to other people:
+     </b>
+     <br>
+     <b>rand.h</b> is copyright by Radford Neal. (It is not actually used by macopt,
+                so this doesn't matter.)
+     <br>
+     <b>nrutil.c</b> and 
+     <b>nrutil.h</b> are derived from the Numerical Recipes in C software
+     library. These minor routines
+     are used by macopt to handle memory allocation and deallocation.
+     </p><p>
+     David MacKay's work is largely supported by donations.
+     If you find macopt useful, please feel free to make a donation.
+     </p>
+  <dt>
+       <em>is there now any need for mynr.h in the release - nothing in
+       it seems to get used anywhere ?
+       </em>
+  <dd>
+       You are right, mynr.h is not needed. Sorry about this untidiness.
+  <dt>
+       <em>I didn't initially realise how inherently macopt depends
+       on gradients being easily computed.  Is this really that
+       often the case ?
+       </em>
+  <dd>
+       Yes, macopt is built on the assumption that a gradient evaluation
+       costs only about twice as much as a function evaluation.
+       This is the case in all the statistical models I work
+       with (neural nets, etc.)
+<br>
+       If in fact function evaluations are relatively cheap and gradients
+       are very expensive, then you might want to change to a different
+       line minimizer. [A friend told me that lnsrch in the new edition of numerical 
+        recipes is a good line minimizer.]
+       <br>
+       However, Barak Pearlmutter points out that
+<em>        Gradients can always be calculated with at worst 5 times
+ more effort, and typically just 2 times  (even if there is an
+ iterate-to-fixedpoint in the function evaluation itself, which complicates
+       things a little.) [<a href=#refs>references</a>]</em>
+        Thus it makes sense to always make a gradient-finding routine.
+</dl>
+
+<hr>
+<b>References</b>
+ concerning optimization and the ease of computing derivatives:<br>
+<pre>
+@PHDTHESIS{Speelpenning1980a,
+  author = "Bert Speelpenning",
+  month = "January",
+  year = 1980,
+  title = "Compiling Fast Partial Derivatives of Functions Given by Algorithms",
+  address = "Urbana-Champaign, IL",
+  school = "Department of Computer Science, University of Illinois at
+           Urbana-Champaign",
+  key = "Speelpenning1980a",
+  abstract = "This is the author's doctoral thesis. It starts by comparing
+             previous work in the area of symbolic differentiation of
+             algorithms. Specifically it considers the work of Warner in 1975,
+             Joss in 1976 and Kedem in 1977. The conclusions reached in this
+             discussion are that the work by Joss is the best in terms of
+             improvement. The author proceeds to describe how Joss' work can
+             be improved in terms of speed, accuracy and space. A package,
+             Jake, is described which is a compiler that takes a Fortran 66
+             input definition of a function. This input is limited in that
+             only one subroutine can be specified, and that certain Fortran 66
+             statements are disallowed. Jake is instructed on how to perform
+             its task by directives within the subroutine. Timing results are
+             provided on the performance of the code produced by Jake over
+             those where finite differencing is used.",
+  keywords = "point algorithm; precompiler; numerical results."
+}
+
+@BOOK{Griewank2000a,
+  author = "Andreas Griewank",
+  year = 2000,
+  title = "Evaluating Derivatives: Principles and Techniques of Algorithmic
+          Differentiation",
+  series = "Frontiers in Appl. Math.",
+  number = 19,
+  publisher = "SIAM",
+  address = "Philadelphia, PA",
+  key = "Griewank2000a",
+  isbn = "0--89871--451--6"
+}
+</pre>
+<hr>
+	David MacKay's:
+	<a href="http://www.inference.phy.cam.ac.uk/mackay/">home page</a>,
+	<a href="http://www.inference.phy.cam.ac.uk/mackay/README.html">publications and code</a>.
+</BODY><address>
+</ADDRESS>
+<!-- hhmts start -->
+Last modified: Tue Jun 29 11:23:41 2004
+<!-- hhmts end -->
+</HTML> 
